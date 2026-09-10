@@ -32,3 +32,15 @@ jobs:
           git add docs/LEDGER-STAMP.md
           git diff --cached --quiet || git commit -m "sync: team-enhance stamp (137451921129154222)"
           git push || true
+      - name: fanout-siblings
+        if: ${{ secrets.CASCADE_TOKEN != '' }}
+        env:
+          GH_TOKEN: ${{ secrets.CASCADE_TOKEN }}
+        run: |
+          for repo in The-Hive Cryptic-Heartbeat gaia-visualizer; do
+            curl -sS -X POST \
+              -H "Accept: application/vnd.github+json" \
+              -H "Authorization: Bearer $GH_TOKEN" \
+              https://api.github.com/repos/machackabook/$repo/dispatches \
+              -d '{"event_type":"continuity-cascade"}' || true
+          done

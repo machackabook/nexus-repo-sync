@@ -1,6 +1,7 @@
 # LEDGER-STAMP
-- utc: 2026-09-10T15:36:00Z
+- utc: 2026-09-10T17:05:00Z
 - numeral: 137451921129154222
 - surface: nexus-repo-sync
 - team: enhance
-- note: first generation — empty repo seeded
+- generation: v1.2.0-speedway
+- note: env-check + cascade fanout contract
