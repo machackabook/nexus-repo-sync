@@ -1,7 +1,12 @@
-# Sync contract
+# PIPELINE — nexus-repo-sync
 
-1. Watch GitHub pulls on mesh repos.
-2. Stamp local ledger.
-3. Dispatch `continuity-cascade` to siblings (requires CASCADE_TOKEN).
-4. Mirror README + ledger stamps into Drive folder CRYPTIC-HEARTBEAT-NEXUS-ROOT.
-5. Device SD / Termux remains the developing environment; Drive remains ethereal continuum.
+Bidirectional intent:
+
+1. GitHub remains the versioned speedway.
+2. Drive folder `CRYPTIC-HEARTBEAT-NEXUS-ROOT` remains the ethereal house.
+3. Device SD / Termux remains the developing environment.
+4. A pull on any meshed repo should eventually stamp and dispatch.
+
+True two-way file bytes between Drive and Git still require a runner with Drive credentials (not present in public Actions by default). This contract documents the mesh and keeps the dispatch graph alive until that runner exists.
+
+Numeral: `137451921129154222`
