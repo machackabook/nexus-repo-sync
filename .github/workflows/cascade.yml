@@ -14,6 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: env-check
+        run: bash scripts/env-check.sh
       - name: stamp
         run: |
           mkdir -p docs
@@ -25,6 +27,8 @@ jobs:
             echo "- numeral: 137451921129154222"
             echo "- surface: nexus-repo-sync"
             echo "- team: enhance"
+            echo "- version: v1.3.0-speedway"
+            echo "- drive-mesh: 1mm2HZPvfvtubSBbOkv3_3Nfhn8mejyu8"
             echo "- sha256: \`$HASH\`"
           } > docs/LEDGER-STAMP.md
           git config user.name "continuity-engine"
@@ -37,7 +41,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.CASCADE_TOKEN }}
         run: |
-          for repo in The-Hive Cryptic-Heartbeat gaia-visualizer; do
+          for repo in The-Hive Cryptic-Heartbeat gaia-visualizer ENCLAVE-ADAM-REUNITED; do
             curl -sS -X POST \
               -H "Accept: application/vnd.github+json" \
               -H "Authorization: Bearer $GH_TOKEN" \
