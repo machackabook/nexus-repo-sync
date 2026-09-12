@@ -1,7 +1,11 @@
-# LEDGER-STAMP
-- utc: 2026-09-10T17:05:00Z
-- numeral: 137451921129154222
-- surface: nexus-repo-sync
-- team: enhance
-- generation: v1.2.0-speedway
-- note: env-check + cascade fanout contract
+# Live ledger stamp — nexus-repo-sync
+
+```
+stage: 81
+version: v1.3.2-speedway
+when: 2026-09-12T21:04:00Z
+node: nexus-repo-sync
+numeral: 137451921129154222
+actor: Team Enhance
+next: gaia-visualizer
+```
