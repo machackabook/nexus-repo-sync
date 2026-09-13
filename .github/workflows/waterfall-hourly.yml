@@ -1,0 +1,16 @@
+name: Waterfall Repo Sync
+on:
+  schedule:
+    - cron: "20 * * * *"
+  workflow_dispatch:
+  pull_request:
+    types: [closed]
+jobs:
+  sync-surface:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Catalog mesh neighbors
+        run: |
+          echo "mesh: continuity-ledger-cycle The-Hive gaia-visualizer Cryptic-Heartbeat NEXUS-SENTINEL-LEDGER"
+          bash scripts/env_check.sh || true
