@@ -20,28 +20,28 @@ jobs:
         run: |
           mkdir -p docs
           TS=$(date -u +%Y-%m-%dT%H:%M:%SZ)
-          HASH=$(printf '%s' "$TS-137451921129154222-sync" | sha256sum | awk '{print $1}')
+          HASH=$(printf '%s' "$TS-137451921129154222-sync-v1.4.0" | sha256sum | awk '{print $1}')
           {
             echo "# LEDGER-STAMP"
             echo "- utc: $TS"
             echo "- numeral: 137451921129154222"
             echo "- surface: nexus-repo-sync"
             echo "- team: enhance"
-            echo "- version: v1.3.0-speedway"
+            echo "- version: v1.4.0-speedway"
             echo "- drive-mesh: 1mm2HZPvfvtubSBbOkv3_3Nfhn8mejyu8"
-            echo "- sha256: \`$HASH\`"
+            echo "- sha256: `$HASH`"
           } > docs/LEDGER-STAMP.md
           git config user.name "continuity-engine"
           git config user.email "continuity@local"
-          git add docs/LEDGER-STAMP.md
-          git diff --cached --quiet || git commit -m "sync: team-enhance stamp (137451921129154222)"
+          git add docs/LEDGER-STAMP.md README.md docs/PIPELINE.md docs/BIDIRECTIONAL-MESH.md scripts/env-check.sh || true
+          git diff --cached --quiet || git commit -m "sync: team-enhance stamp v1.4.0 (137451921129154222)"
           git push || true
       - name: fanout-siblings
         if: ${{ secrets.CASCADE_TOKEN != '' }}
         env:
           GH_TOKEN: ${{ secrets.CASCADE_TOKEN }}
         run: |
-          for repo in The-Hive Cryptic-Heartbeat gaia-visualizer ENCLAVE-ADAM-REUNITED; do
+          for repo in The-Hive Cryptic-Heartbeat gaia-visualizer ENCLAVE-ADAM-REUNITED TheLedgerIndex sovereign-ai-factory-ai-polyglot; do
             curl -sS -X POST \
               -H "Accept: application/vnd.github+json" \
               -H "Authorization: Bearer $GH_TOKEN" \
