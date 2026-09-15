@@ -16,11 +16,8 @@ fail(){ printf '[gaia-pull][error] %s\n' "$*" >&2; }
 main(){
   command -v git >/dev/null 2>&1 || { fail 'git is required'; return 1; }
   git rev-parse --is-inside-work-tree >/dev/null 2>&1 || { fail 'not inside a git worktree'; return 1; }
-
-  if [[ -z "$BRANCH" ]]; then
-    BRANCH=$(git symbolic-ref --quiet --short HEAD 2>/dev/null || true)
-  fi
-  [[ -n "$BRANCH" ]] || { fail 'detached HEAD: set GAIA_BRANCH=<branch> explicitly'; return 1; }
+  if [[ -z "$BRANCH" ]]; then BRANCH=$(git symbolic-ref --quiet --short HEAD 2>/dev/null || true); fi
+  [[ -n "$BRANCH" ]] || { fail 'detached HEAD: set GAIA_BRANCH explicitly'; return 1; }
   git remote get-url "$REMOTE" >/dev/null 2>&1 || { fail "remote '$REMOTE' not configured"; return 1; }
 
   if ! git diff --quiet || ! git diff --cached --quiet; then
@@ -35,9 +32,12 @@ main(){
   fetch_ok=0
   for ((attempt=1; attempt<=RETRIES; attempt++)); do
     say "fetch attempt ${attempt}/${RETRIES}"
-    if git -c fetch.prune=true -c fetch.parallel=4 fetch "$REMOTE" "$BRANCH" --no-tags --depth="$DEPTH" --prune; then
-      fetch_ok=1
-      break
+    fetch_args=("$REMOTE" "$BRANCH" --no-tags --prune)
+    if [[ "$(git rev-parse --is-shallow-repository 2>/dev/null || echo false)" == "true" ]]; then
+      fetch_args+=(--depth="$DEPTH")
+    fi
+    if git -c fetch.prune=true -c fetch.parallel=4 fetch "${fetch_args[@]}"; then
+      fetch_ok=1; break
     fi
     if (( attempt < RETRIES )); then
       delay=$((BACKOFF * (2 ** (attempt-1))))
@@ -52,11 +52,7 @@ main(){
   local_sha=$(git rev-parse HEAD)
   remote_sha=$(git rev-parse "$remote_ref")
 
-  if [[ "$local_sha" == "$remote_sha" ]]; then
-    say 'already current; no pull required'
-    return 0
-  fi
-
+  if [[ "$local_sha" == "$remote_sha" ]]; then say 'already current; no pull required'; return 0; fi
   if git merge-base --is-ancestor "$local_sha" "$remote_sha"; then
     say "fast-forwarding ${local_sha:0:8} → ${remote_sha:0:8}"
     git merge --ff-only "$remote_ref" || { fail 'fast-forward failed; inspect repository state'; return 1; }
@@ -64,15 +60,11 @@ main(){
     git maintenance run --auto >/dev/null 2>&1 || true
     return 0
   fi
-
   if git merge-base --is-ancestor "$remote_sha" "$local_sha"; then
-    say 'local branch is ahead of origin; no destructive action taken'
-    return 0
+    say 'local branch is ahead of origin; no destructive action taken'; return 0
   fi
-
   warn 'branches diverged; no automatic merge or reset performed'
   say 'resolution: review git log --oneline --graph --decorate --all, then merge/rebase deliberately'
   return 3
 }
-
 main "$@"
