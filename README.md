@@ -19,6 +19,44 @@ The canonical engram index is maintained under `docs/engram/`.
 
 The engram layer explicitly distinguishes observed source material from synthesis, decisions, open questions, and capability/status receipts. A manifest does not grant external access; actual convergence requires authenticated transport, authorization, durable state, and read-back verification.
 
+## Adaptive pull engine
+
+The repository now carries a device-neutral pull path designed for slow or unreliable Windows/Termux connections:
+
+```text
+local safety check
+      ↓
+pruned, no-tag fetch
+      ↓
+bounded exponential retry
+      ↓
+SHA comparison
+      ↓
+fast-forward only ──→ maintenance
+      └─ diverged → stop safely, never reset
+```
+
+### Windows
+
+```powershell
+cd C:\GAIA
+& .\scripts\gaia-pull.ps1 -Remote origin -Branch main
+```
+
+### Linux / Termux
+
+```bash
+bash scripts/gaia-pull.sh
+```
+
+Optional tuning is available through `GAIA_PULL_RETRIES`, `GAIA_PULL_BACKOFF`, `GAIA_PULL_DEPTH`, `GAIA_REMOTE`, and `GAIA_BRANCH`. The engine refuses to overwrite uncommitted work and never performs an implicit force-reset.
+
+For a **fresh clone**, prefer a partial clone when the repository is large:
+
+```bash
+git clone --filter=blob:none --no-tags --depth=1 https://github.com/machackabook/nexus-repo-sync.git
+```
+
 ## Waterfall (pull → push)
 
 ```text
@@ -46,7 +84,7 @@ A Grok Automations hourly job (Continuity factory) complements Actions when the 
 
 ```bash
 # env check + directory mesh
-bash scripts/env_check.sh
+bash scripts/env-check.sh
 
 # unpack zips from Downloads / public / private watch folders (dry-run first)
 bash scripts/watch_unpack.sh --dry-run
