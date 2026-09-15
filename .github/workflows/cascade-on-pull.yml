@@ -1,0 +1,20 @@
+name: cascade-on-pull
+on:
+  pull_request:
+    types: [opened, synchronize, closed]
+  workflow_dispatch:
+jobs:
+  stamp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: write cascade stamp
+        run: |
+          mkdir -p docs
+          echo "cascade $(date -u +%Y-%m-%dT%H:%M:%SZ) numeral=137451921129154222" >> docs/CASCADE_LEDGER.txt
+      - name: commit stamp if changed
+        run: |
+          git config user.name "team-enhance"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/CASCADE_LEDGER.txt || true
+          git diff --cached --quiet || git commit -m "cascade stamp 137451921129154222"
