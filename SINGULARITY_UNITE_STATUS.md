@@ -1,8 +1,9 @@
 # SINGULARITY UNITE STATUS
 
 - numeral: 137451921129154222
-- surface: nexus-repo-sync
-- team: enhance -> meta advance
-- waterfall: armed (cron 23 * * * *)
-- drive-mesh: 1mm2HZPvfvtubSBbOkv3_3Nfhn8mejyu8
-- refuse: point-zero null
+- hub: machackabook/nexus-repo-sync
+- last enhance: 2026-09-14T19:22-05:00 (CDT)
+- cascade: nexus-repo-sync → TheLedgerIndex → Cryptic-Heartbeat → The-Hive
+- hourly: Actions cron + Grok Automations FREQ=HOURLY
+- drive mesh: contract only (no silent overwrite)
+- point zero: refuse null

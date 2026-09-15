@@ -1,0 +1,38 @@
+name: hourly-enhance-waterfall
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+  repository_dispatch:
+    types: [cascade-next, pull-landed]
+permissions:
+  contents: write
+jobs:
+  stamp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: env check
+        run: bash scripts/env_check.sh || true
+      - name: cascade stamp
+        run: bash scripts/cascade_stamp.sh
+      - name: refresh unite status
+        run: |
+          cat > SINGULARITY_UNITE_STATUS.md <<EOF
+          # SINGULARITY UNITE STATUS
+          - numeral: 137451921129154222
+          - hub: machackabook/nexus-repo-sync
+          - last enhance: $(date -u +%Y-%m-%dT%H:%M:%SZ)
+          - actor: ${{ github.actor }}
+          - event: ${{ github.event_name }}
+          - cascade: nexus-repo-sync → TheLedgerIndex → Cryptic-Heartbeat → The-Hive
+          - point zero: refuse null
+          EOF
+      - name: commit if dirty
+        run: |
+          git config user.name "continuity-engine"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/LEDGER.jsonl SINGULARITY_UNITE_STATUS.md || true
+          git diff --cached --quiet && echo "no change" && exit 0
+          git commit -m "continuity: hourly enhance stamp ${{ github.run_id }}"
+          git push
