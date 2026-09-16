@@ -1,0 +1,37 @@
+{
+  "schema": "gaia-sync-policy/v1",
+  "project": "GAIASWINDOW",
+  "repository": "machackabook/nexus-repo-sync",
+  "default_branch": "main",
+  "profiles": {
+    "FAST": {"retries": 2, "backoff_seconds": 1, "depth": 1, "no_tags": true, "prune": true},
+    "BALANCED": {"retries": 4, "backoff_seconds": 2, "depth": 1, "no_tags": true, "prune": true},
+    "RECOVERY": {"retries": 6, "backoff_seconds": 4, "depth": 1, "no_tags": true, "prune": true},
+    "OFFLINE": {"retries": 0, "backoff_seconds": 0, "depth": 1, "no_tags": true, "prune": false}
+  },
+  "safety": {
+    "require_clean_worktree": true,
+    "fast_forward_only": true,
+    "allow_force_reset": false,
+    "allow_implicit_merge": false,
+    "allow_implicit_rebase": false,
+    "require_remote": true,
+    "record_receipt": true
+  },
+  "optimization": {
+    "fetch_tags": false,
+    "prune_stale_refs": true,
+    "maintenance_after_update": true,
+    "prefer_partial_clone_for_fresh_clone": true
+  },
+  "outputs": {
+    "receipt": "docs/sync/GAIA_SYNC_RECEIPT.jsonl",
+    "ledger": "docs/LEDGER.jsonl"
+  },
+  "cascade": {
+    "enabled": true,
+    "targets_file": "scripts/cascade_targets.txt",
+    "dispatch_only": true,
+    "never_overwrite": true
+  }
+}
