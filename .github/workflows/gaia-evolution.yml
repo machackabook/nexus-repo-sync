@@ -1,0 +1,85 @@
+name: GAIA Evolution Controller
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+  repository_dispatch:
+    types: [gaia-evolve, gaia-sync, agent-handoff]
+
+concurrency:
+  group: gaia-evolution-main
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  evolve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout shallow state
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          fetch-tags: false
+
+      - name: Runtime inventory
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p docs/sync/runtime
+          git --version | tee docs/sync/runtime/git-version.txt
+          python3 --version | tee docs/sync/runtime/python-version.txt
+          node --version 2>/dev/null | tee docs/sync/runtime/node-version.txt || true
+
+      - name: Preflight
+        shell: bash
+        run: |
+          set -euo pipefail
+          bash scripts/gaia-preflight.sh > docs/sync/runtime/preflight.json
+          cat docs/sync/runtime/preflight.json
+
+      - name: State fingerprint
+        shell: bash
+        run: |
+          set -euo pipefail
+          printf '{"schema":"gaia-fingerprint/v1","timestamp":"%s","sha":"%s","tree":"%s","files":%s,"policy":"%s"}\n' \
+            "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+            "$(git rev-parse HEAD)" \
+            "$(git rev-parse HEAD^{tree})" \
+            "$(git ls-files | wc -l | tr -d ' ')" \
+            "$(sha256sum config/gaia-sync.json | cut -d' ' -f1)" \
+            > docs/sync/runtime/fingerprint.json
+          cat docs/sync/runtime/fingerprint.json
+
+      - name: Historical lineage pointer
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p docs/sync/lineage
+          cat > docs/sync/lineage/CURRENT.json <<EOF
+          {"schema":"gaia-lineage/v1","current_sha":"$(git rev-parse HEAD)","parent_sha":"$(git rev-parse HEAD^ 2>/dev/null || echo null)","recorded_at":"$(date -u +%Y-%m-%dT%H:%M:%SZ)","principle":"current state preserves an explicit pointer to its Git ancestry"}
+          EOF
+
+      - name: Publish evidence artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: gaia-evolution-${{ github.run_id }}
+          path: docs/sync/runtime
+          retention-days: 30
+
+      - name: Commit runtime evidence when changed
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'gaia-evolution-bot'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/sync/runtime docs/sync/lineage/CURRENT.json
+          if git diff --cached --quiet; then
+            echo 'No durable evidence change; avoiding commit churn.'
+          else
+            git commit -m 'chore: record GAIA evolution evidence'
+            git push origin HEAD:main
+          fi
