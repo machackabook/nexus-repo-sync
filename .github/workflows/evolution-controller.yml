@@ -1,0 +1,126 @@
+name: gaia-evolution-controller
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+  repository_dispatch:
+    types: [gaia-evolve, continuity-cascade, pull-landed]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gaia-evolution-main
+  cancel-in-progress: false
+
+env:
+  GAIA_NUMERAL: '137451921129154222'
+  GAIA_POLICY: 'config/gaia-sync.json'
+
+jobs:
+  evolve:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          fetch-tags: false
+
+      - name: preflight
+        run: bash scripts/gaia-preflight.sh
+
+      - name: build state and evolution queue
+        id: state
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p docs/sync docs/lineage
+          TS=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          SHA=$(git rev-parse HEAD)
+          TREE=$(git rev-parse HEAD^{tree})
+          FILES=$(git ls-files | wc -l | tr -d ' ')
+          WORKFLOWS=$(find .github/workflows -maxdepth 1 -type f -name '*.yml' -o -name '*.yaml' | wc -l | tr -d ' ')
+          POLICY_SHA=$(sha256sum "$GAIA_POLICY" | awk '{print $1}')
+          STATE="docs/sync/state.sha256"
+          printf '%s\n' "$SHA|$TREE|$FILES|$WORKFLOWS|$POLICY_SHA" > "$STATE.new"
+          CHANGED=false
+          if [[ ! -f "$STATE" ]] || ! cmp -s "$STATE.new" "$STATE"; then CHANGED=true; mv "$STATE.new" "$STATE"; else rm -f "$STATE.new"; fi
+
+          cat > docs/sync/CURRENT_STATE.json <<EOF
+          {
+            "schema":"gaia-state/v1",
+            "observed_at":"$TS",
+            "repository":"machackabook/nexus-repo-sync",
+            "branch":"main",
+            "head_sha":"$SHA",
+            "tree_sha":"$TREE",
+            "tracked_files":$FILES,
+            "workflow_count":$WORKFLOWS,
+            "policy_sha256":"$POLICY_SHA",
+            "numeral":"$GAIA_NUMERAL",
+            "change_detected":$CHANGED
+          }
+          EOF
+
+          cat > docs/sync/EVOLUTION_QUEUE.json <<EOF
+          {
+            "schema":"gaia-evolution-queue/v1",
+            "observed_at":"$TS",
+            "source_head":"$SHA",
+            "items":[
+              {"id":"SYNC-PREFLIGHT","action":"run preflight before mutation","priority":"continuous"},
+              {"id":"SYNC-CONVERGENCE","action":"compare local and remote SHA before update","priority":"continuous"},
+              {"id":"LINEAGE-LINK","action":"preserve exact historical commit and engram references","priority":"continuous"},
+              {"id":"AGENT-HANDOFF","action":"publish evidence receipt before requesting another participant","priority":"continuous"},
+              {"id":"PUBLIC-BOUNDARY","action":"exclude credentials, cookies, keys, and private enclave material","priority":"critical"}
+            ]
+          }
+          EOF
+
+          printf 'change_detected=%s\n' "$CHANGED" >> "$GITHUB_OUTPUT"
+
+      - name: historical symbolic lineage
+        shell: bash
+        run: |
+          TS=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          cat > docs/lineage/SYMBOLIC_LINKS.json <<EOF
+          {
+            "schema":"gaia-lineage/v1",
+            "symbol":"GAIA-137451921129154222",
+            "current_head":"$(git rev-parse HEAD)",
+            "links":[
+              {"kind":"historical-engram","path":"docs/engram/2026-09-15-universal-convergence.md","commit":"de2b4453961b5a3331c8e12b99208d6d69bd2820"},
+              {"kind":"historical-ledger","path":"docs/LEDGER.jsonl","commit":"$(git log --all --format=%H -- docs/LEDGER.jsonl | tail -1)"},
+              {"kind":"prior-sync-protocol","path":"docs/sync/GAIA_SYNC_PROTOCOL.md","commit":"$(git log --all --format=%H -- docs/sync/GAIA_SYNC_PROTOCOL.md | head -1)"}
+            ],
+            "rule":"symbolic references preserve lineage; they do not duplicate or overwrite historical records",
+            "observed_at":"$TS"
+          }
+          EOF
+
+      - name: upload recurring evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: gaia-evolution-${{ github.run_id }}
+          retention-days: 14
+          path: |
+            docs/sync/CURRENT_STATE.json
+            docs/sync/EVOLUTION_QUEUE.json
+            docs/sync/state.sha256
+            docs/lineage/SYMBOLIC_LINKS.json
+
+      - name: commit durable state only when changed
+        if: steps.state.outputs.change_detected == 'true'
+        shell: bash
+        run: |
+          git config user.name 'gaia-evolution'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add docs/sync docs/lineage/SYMBOLIC_LINKS.json
+          if git diff --cached --quiet; then
+            echo 'no durable delta'
+            exit 0
+          fi
+          git commit -m "evolution: durable GAIA state ${{ github.run_id }}"
+          git push
