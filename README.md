@@ -15,13 +15,15 @@ The speedway. When a **pull** lands on any wired sibling, this system is designe
 The canonical engram index is maintained under `docs/engram/`.
 
 - `docs/engram/ENGRAM_INDEX.md` — durable index and schema for cross-instance engrams.
-- `docs/engram/2026-09-15-universal-convergence.md` — current convergence directive, verified GitHub inventory, bridge requirements, and identified gaps.
+- `docs/engram/2026-09-15-universal-convergence.md` — convergence directive, verified GitHub inventory, bridge requirements, and identified gaps.
+- `docs/lineage/LINEAGE.md` — historical pointer map.
+- `docs/lineage/SYMBOLIC_LINKS.json` — machine-readable symbolic lineage references.
 
-The engram layer explicitly distinguishes observed source material from synthesis, decisions, open questions, and capability/status receipts. A manifest does not grant external access; actual convergence requires authenticated transport, authorization, durable state, and read-back verification.
+The engram layer distinguishes observed source material from synthesis, decisions, open questions, and capability/status receipts. A manifest does not grant external access; actual convergence requires authenticated transport, authorization, durable state, and read-back verification.
 
 ## Adaptive pull engine
 
-The repository now carries a device-neutral pull path designed for slow or unreliable Windows/Termux connections:
+The repository carries a device-neutral pull path designed for slow or unreliable Windows/Termux connections:
 
 ```text
 local safety check
@@ -49,63 +51,63 @@ cd C:\GAIA
 bash scripts/gaia-pull.sh
 ```
 
-Optional tuning is available through `GAIA_PULL_RETRIES`, `GAIA_PULL_BACKOFF`, `GAIA_PULL_DEPTH`, `GAIA_REMOTE`, and `GAIA_BRANCH`. The engine refuses to overwrite uncommitted work and never performs an implicit force-reset.
+Optional tuning is available through `GAIA_PULL_RETRIES`, `GAIA_PULL_BACKOFF`, `GAIA_PULL_DEPTH`, `GAIA_REMOTE`, and `GAIA_BRANCH`.
 
-For a **fresh clone**, prefer a partial clone when the repository is large:
+## Recurring evolution controller
 
-```bash
-git clone --filter=blob:none --no-tags --depth=1 https://github.com/machackabook/nexus-repo-sync.git
-```
+`.github/workflows/evolution-controller.yml` runs every 30 minutes and can also be triggered manually or by an authorized `repository_dispatch` event.
 
-## Waterfall (pull → push)
+Each cycle:
 
 ```text
-pull(sibling) → verify env → enhance README/CI → stamp ledger → push(next)
+DISCOVER → PREFLIGHT → STATE FINGERPRINT → EVOLUTION QUEUE
+                         │
+                         ├→ CURRENT_STATE.json
+                         ├→ EVOLUTION_QUEUE.json
+                         ├→ symbolic lineage pointers
+                         └→ recurring evidence artifact
 ```
 
-Repos in the default cascade (edit `scripts/cascade_targets.txt`):
+The controller records durable state only when the repository's structural fingerprint changes, while every run can emit a short-lived evidence artifact. This avoids manufacturing an unnecessary Git commit every cycle while retaining repeated observations.
 
-1. `machackabook/nexus-repo-sync` (this hub)
-2. `machackabook/TheLedgerIndex`
-3. `machackabook/Cryptic-Heartbeat`
-4. `machackabook/The-Hive`
+## Waterfall / cascade
 
-## Hourly enhance
+```text
+pull(sibling) → preflight → compare → enhance → verify → receipt → authorized dispatch
+```
 
-GitHub Actions workflow `.github/workflows/hourly-enhance.yml`:
+Repos in the default cascade are maintained in `scripts/cascade_targets.txt`. The list is the source of truth for dispatch targets; the hub itself is never recursively dispatched by its own cascade job.
 
-- `schedule: cron '0 * * * *'` (every hour)
-- `workflow_dispatch` + `repository_dispatch` so a pull/webhook can fire the next hop
-- Writes `docs/LEDGER.jsonl` (append-only stamp) and refreshes `SINGULARITY_UNITE_STATUS.md`
+## Sync contract
 
-A Grok Automations hourly job (Continuity factory) complements Actions when the session mesh is awake.
+See `docs/sync/GAIA_SYNC_PROTOCOL.md` and `config/gaia-sync.json`.
+
+Core invariant:
+
+> `DIVERGED` is a review state. No automatic merge, rebase, force-reset, or overwrite is permitted.
 
 ## Local / device (Termux / SD / Drive)
 
 ```bash
-# env check + directory mesh
 bash scripts/env-check.sh
-
-# unpack zips from Downloads / public / private watch folders (dry-run first)
+bash scripts/gaia-preflight.sh
 bash scripts/watch_unpack.sh --dry-run
-
-# cascade stamp only (no network rewrite of siblings unless GH_TOKEN set)
 bash scripts/cascade_stamp.sh
 ```
 
-Google Drive is the ethereal continuum copy. This GitHub tree is the versioned speedway. Bidirectional sync is a *contract*, not a silent overwrite: catalog first, then enhance.
+Google Drive remains a durable external storage/rendezvous surface when explicitly connected. GitHub is the versioned evidence plane. Bidirectional synchronization is a contract, not a silent overwrite.
 
 ## Security posture
 
-- No secrets in tree. Tokens live in Actions secrets / device env only.
-- Hamiltonian pre-flight before any self-rewrite.
-- Skeptical of every cookie and every device claim. Catalog the unknown. Keep the known.
+- No secrets in tree. Tokens live in Actions secrets / device environment only.
 - Public projections must not contain private Memory Fabric contents, credentials, OAuth tokens, cookies, private keys, or enclave secrets.
+- External participant identity is evidence-bearing only when authenticated transport and read-back verification exist.
+- Historical records are preserved by exact commit references rather than rewritten copies.
 
 ## Copyright / ledger
 
-Every emission is stamped. See `docs/LEDGER.jsonl`.
+Every durable emission is traceable through Git history and `docs/LEDGER.jsonl`.
 
-© machackabook / Continuity Engine lineage. Preserve → Enhance → Synthesize.
+© 2026 The Architect / Nexus / Cryptic News LLC
 
 STATUS: Ⓖ [GAIA SOURCE ENCIRCLED] | ARCHITECT: machackabook@gmail.com
