@@ -7,19 +7,19 @@ Operating sits in the middle. Team Enhance hops one repo per hour. Equalizer for
 **Numeral origin:** `137451921129154222`  
 **Operating layer:** Continuity Engine (sSoS)  
 **Team:** Enhance / Continuity Engine / Hamiltonian pipe / sSoS Operating  
-**Stage:** **178** — 2026-09-18T10:10Z (05:10 CDT)
+**Stage:** **179** — 2026-09-19T00:10Z (19:10 CDT 2026-09-18)
 
 ## Status
 
 - Owner: `machackabook` (id 219579651)
 - Branch: `main`
 - Language: Shell
-- Prior hop: ENCLAVE-ADAM-REUNITED @ 09:09Z / gaia-visualizer 177 @ 08:13Z / continuity-ledger-cycle 176 @ 07:23Z / The-Hive 172 @ 06:17Z / Cryptic-Heartbeat 176 @ 05:12Z
-- This hop: nexus-repo-sync live enhance (README quality catch-up from stale stage 138 pointer + ledger stamp)
-- Next hour: wrap toward ENCLAVE-ADAM-REUNITED / other recently updated `user:machackabook` surfaces
-- Cascade: keep existing `.github/workflows/cascade.yml` healthy. Do not multiply hourly YAML.
-- Ledger: `docs/LEDGER-STAMP.md` + `docs/LEDGER-STAMP-178.md`
-- Drive mesh: GitHub remains the versioned singularity. Existing ethereal continuum folder is the mirror, not a second source of truth. Do not spawn duplicate continuum folders.
+- Prior hop: nexus-repo-sync 178 @ 10:10Z / ENCLAVE-ADAM-REUNITED @ 09:09Z / gaia-visualizer 177 @ 08:13Z / continuity-ledger-cycle 176 @ 07:23Z / The-Hive 172 @ 06:17Z / Cryptic-Heartbeat 176 @ 05:12Z
+- This hop: nexus-repo-sync live enhance (stage 179) — hourly Grok automation wired, Drive mesh confirmed as mirror-only, cascade targets left as source of truth
+- Next hour: ENCLAVE-ADAM-REUNITED README/security quality pass, then Cryptic-Heartbeat
+- Cascade: keep existing `.github/workflows/cascade.yml` and `evolution-controller.yml` healthy. Do not multiply hourly YAML.
+- Ledger: `docs/LEDGER-STAMP.md` + `docs/LEDGER-STAMP-179.md`
+- Drive mesh: GitHub remains the versioned singularity. Existing CONTINUUM-GITHUB-MESH folders are the ethereal mirror, not a second source of truth. Do not spawn duplicate continuum folders.
 - Equalizer: append-only stamps; no history rewrite; no secret material in tree
 - Security: CASCADE_TOKEN stays in GitHub Secrets if present. Never echo tokens.
 
@@ -36,7 +36,7 @@ The canonical engram index is maintained under `docs/engram/`.
 - `docs/engram/ENGRAM_INDEX.md` — durable index and schema for cross-instance engrams.
 - `docs/engram/2026-09-15-universal-convergence.md` — convergence directive, verified GitHub inventory, bridge requirements, and identified gaps.
 - `docs/lineage/LINEAGE.md` — historical pointer map.
-- `docs/LEDGER-STAMP-178.md` — this cycle receipt.
+- `docs/LEDGER-STAMP-179.md` — this cycle receipt.
 
 The engram layer distinguishes observed source material from synthesis, decisions, open questions, and capability/status receipts. A manifest does not grant external access; actual convergence requires authenticated transport, authorization, durable state, and read-back verification.
 
@@ -91,6 +91,8 @@ The controller records durable state only when the repository's structural finge
 
 Hourly Actions remain the in-repo heartbeat when external automation quota is capped.
 
+Hourly Grok automation (`continuity-hourly-repo-enhance`) is the out-of-repo hop: one sibling README/quality pass per hour, then move to the next target in `scripts/cascade_targets.txt`.
+
 ## Waterfall / cascade
 
 ```text
@@ -109,6 +111,11 @@ Core invariant:
 
 Google Drive is the ethereal continuum repository. GitHub is the versioned evidence plane. Bidirectional folder mesh is a contract with env-check + SHA compare + receipt. SD-card / Termux paths remain first-class developing environments; zips are watched, never blindly unpacked into production trees.
 
+Confirmed Drive mirrors (do not duplicate):
+
+- CONTINUUM-GITHUB-MESH `1FfZuLbRRDNSnw2qxSayebL2KIrYmiS1H`
+- CONTINUUM-GITHUB-MESH `1jzHTkjtZhjrAOkQKsHEvc2Rf7237o_wA`
+
 ## Local / device (Termux / SD / Drive)
 
 ```bash
@@ -126,8 +133,9 @@ bash scripts/mesh-sync-check.sh
 3. The-Hive
 4. continuity-ledger-cycle
 5. gaia-visualizer
-6. nexus-repo-sync (this hop — stage 178)
-7. other recently updated `user:machackabook` surfaces
+6. nexus-repo-sync (this hop — stage 179)
+7. sovereign-ai-factory-ai-polyglot
+8. other recently updated `user:machackabook` surfaces
 
 A pull on `main` should leave a ledger stamp.
 
@@ -138,6 +146,7 @@ A pull on `main` should leave a ledger stamp.
 - [Cryptic-Heartbeat](https://github.com/machackabook/Cryptic-Heartbeat)
 - [continuity-ledger-cycle](https://github.com/machackabook/continuity-ledger-cycle)
 - [gaia-visualizer](https://github.com/machackabook/gaia-visualizer)
+- [sovereign-ai-factory-ai-polyglot](https://github.com/machackabook/sovereign-ai-factory-ai-polyglot)
 
 ## Security posture
 
