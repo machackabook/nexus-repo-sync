@@ -4,3 +4,4 @@ machackabook/Cryptic-Heartbeat
 machackabook/The-Hive
 machackabook/ENCLAVE-ADAM-REUNITED
 machackabook/gaia-visualizer
+machackabook/sovereign-ai-factory-ai-polyglot
