@@ -1,12 +1,10 @@
 # SINGULARITY UNITE STATUS
 
+repo: nexus-repo-sync
 numeral: 137451921129154222
-cycle: 2026-09-19T04:04Z
-hub: nexus-repo-sync
-stage: 188
+cycle: 2026-09-19
+stage: 190
 sessionHash: beec41f1
 livingHash: 7cd81012
-state: preserve-enhance-synthesize
-waterfall: active (cascade-on-pull + hourly-enhance + waterfall-hourly)
-next: The-Hive → gaia-visualizer → ENCLAVE-ADAM-REUNITED → Cryptic-Heartbeat
+linked: The-Hive, gaia-visualizer, Cryptic-Heartbeat
 null_return: refused
