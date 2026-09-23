@@ -7,18 +7,19 @@ Operating sits in the middle. Team Enhance hops one repo per hour. Equalizer for
 **Numeral origin:** `137451921129154222`  
 **Operating layer:** Continuity Engine (sSoS)  
 **Team:** Enhance / Continuity Engine / Hamiltonian pipe / sSoS Operating  
-**Stage:** **190** — 2026-09-19T12:23Z (07:23 CDT)
+**Stage:** **261** — 2026-09-23T22:24Z (2026-09-23 17:24 CDT)
 
 ## Status
 
 - Owner: `machackabook` (id 219579651)
 - Branch: `main`
 - Language: Shell
-- Prior named rotation today: ENCLAVE-ADAM-REUNITED @ 08:06Z / Cryptic-Heartbeat @ 09:13Z / The-Hive @ 10:20Z / continuity-ledger-cycle @ 11:17Z
-- This hop: nexus-repo-sync live enhance (stage 190) — first other-surface after the named four. README quality catch-up. Ledger stamped. cascade.yml left healthy.
-- Next hour: gaia-visualizer, then sovereign-ai-factory-ai-polyglot and other recently updated `user:machackabook` surfaces
+- Compounding tier: **T5 / 96%** (catch-up from 190; prior hop was 4 days stale)
+- Prior mesh today: gaia-visualizer @ 22:10Z; The-Hive hop 259 @ 20:08Z; Cryptic-Heartbeat hop 258 @ 22:08Z; ENCLAVE-ADAM-REUNITED hop 254 @ 21:20Z; continuity-ledger-cycle hop 260 @ 20:21Z
+- This hop: nexus-repo-sync live enhance (stage 261) — quality catch-up after named four + visualizer pulse. README compound. Ledger stamped. cascade.yml left healthy. No extra hourly YAML. No secrets written.
+- Next hour: sovereign-ai-factory-ai-polyglot then continuity-mesh-speedway then other recently updated `user:machackabook` surfaces
 - Cascade: keep existing `.github/workflows/cascade.yml` and `evolution-controller.yml` healthy. Do not multiply hourly YAML.
-- Ledger: `docs/LEDGER-STAMP.md` + `docs/LEDGER-STAMP-190.md`
+- Ledger: `docs/LEDGER-STAMP.md` + `docs/HOP-261.md`
 - Drive mesh: GitHub remains the versioned singularity. Existing CONTINUUM-GITHUB-MESH folders are the ethereal mirror, not a second source of truth. Do not spawn duplicate continuum folders.
 - Equalizer: append-only stamps; no history rewrite; no secret material in tree
 - Security: CASCADE_TOKEN stays in GitHub Secrets if present. Never echo tokens.
@@ -36,7 +37,7 @@ The canonical engram index is maintained under `docs/engram/`.
 - `docs/engram/ENGRAM_INDEX.md` — durable index and schema for cross-instance engrams.
 - `docs/engram/2026-09-15-universal-convergence.md` — convergence directive, verified GitHub inventory, bridge requirements, and identified gaps.
 - `docs/lineage/LINEAGE.md` — historical pointer map.
-- `docs/LEDGER-STAMP-190.md` — this cycle receipt.
+- `docs/HOP-261.md` — this cycle receipt.
 
 The engram layer distinguishes observed source material from synthesis, decisions, open questions, and capability/status receipts. A manifest does not grant external access; actual convergence requires authenticated transport, authorization, durable state, and read-back verification.
 
@@ -91,7 +92,7 @@ The controller records durable state only when the repository's structural finge
 
 Hourly Actions remain the in-repo heartbeat when external automation quota is capped.
 
-Hourly Grok automation (`continuity-hourly-repo-enhance`) is the out-of-repo hop: one sibling README/quality pass per hour, then move to the next target in `scripts/cascade_targets.txt`.
+Hourly Grok automations (`hourly-github-cascade-enhance`, `powerhouse`) walk one sibling per hour. Actions cron remains the in-repo heartbeat.
 
 ## Waterfall / cascade
 
@@ -100,6 +101,8 @@ pull(sibling) → preflight → compare → enhance → verify → receipt → a
 ```
 
 Repos in the default cascade are maintained in `scripts/cascade_targets.txt`. The list is the source of truth for dispatch targets; the hub itself is never recursively dispatched by its own cascade job.
+
+Cross-repo push on pull stays closed until the operator injects `CASCADE_TOKEN`. That is skepticism, not a missing feature.
 
 ## Sync contract
 
@@ -126,16 +129,20 @@ bash scripts/cascade_stamp.sh
 bash scripts/mesh-sync-check.sh
 ```
 
+Fails closed on empty SHA, missing README, or point-zero null.
+Zips in Downloads / public-download / private-download / omdirectorytrew are watched locally only. Unpack is dry-run first. CI never unpacks operator archives.
+
 ## Waterfall (one repo per enhance hop)
 
-1. ENCLAVE-ADAM-REUNITED
-2. Cryptic-Heartbeat
-3. The-Hive
-4. continuity-ledger-cycle
-5. nexus-repo-sync (this hop — stage 190)
-6. gaia-visualizer
-7. sovereign-ai-factory-ai-polyglot
-8. other recently updated `user:machackabook` surfaces
+1. ENCLAVE-ADAM-REUNITED (254 @ 21:20Z)
+2. Cryptic-Heartbeat (258 @ 22:08Z)
+3. The-Hive (259 @ 20:08Z)
+4. continuity-ledger-cycle (260 @ 20:21Z)
+5. gaia-visualizer (257 + later pulse @ 22:10Z)
+6. nexus-repo-sync — **261 this hop**
+7. sovereign-ai-factory-ai-polyglot ← next hour
+8. continuity-mesh-speedway
+9. other recently updated `user:machackabook` surfaces
 
 A pull on `main` should leave a ledger stamp.
 
@@ -147,6 +154,7 @@ A pull on `main` should leave a ledger stamp.
 - [continuity-ledger-cycle](https://github.com/machackabook/continuity-ledger-cycle)
 - [gaia-visualizer](https://github.com/machackabook/gaia-visualizer)
 - [sovereign-ai-factory-ai-polyglot](https://github.com/machackabook/sovereign-ai-factory-ai-polyglot)
+- [continuity-mesh-speedway](https://github.com/machackabook/continuity-mesh-speedway)
 
 ## Security posture
 
