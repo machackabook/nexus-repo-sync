@@ -7,19 +7,19 @@ Operating sits in the middle. Team Enhance hops one repo per hour. Equalizer for
 **Numeral origin:** `137451921129154222`  
 **Operating layer:** Continuity Engine (sSoS)  
 **Team:** Enhance / Continuity Engine / Hamiltonian pipe / sSoS Operating  
-**Stage:** **261** — 2026-09-23T22:24Z (2026-09-23 17:24 CDT)
+**Stage:** **267** — 2026-09-24T04:02Z (2026-09-23 23:02 CDT)
 
 ## Status
 
 - Owner: `machackabook` (id 219579651)
 - Branch: `main`
 - Language: Shell
-- Compounding tier: **T5 / 96%** (catch-up from 190; prior hop was 4 days stale)
-- Prior mesh today: gaia-visualizer @ 22:10Z; The-Hive hop 259 @ 20:08Z; Cryptic-Heartbeat hop 258 @ 22:08Z; ENCLAVE-ADAM-REUNITED hop 254 @ 21:20Z; continuity-ledger-cycle hop 260 @ 20:21Z
-- This hop: nexus-repo-sync live enhance (stage 261) — quality catch-up after named four + visualizer pulse. README compound. Ledger stamped. cascade.yml left healthy. No extra hourly YAML. No secrets written.
-- Next hour: sovereign-ai-factory-ai-polyglot then continuity-mesh-speedway then other recently updated `user:machackabook` surfaces
+- Compounding tier: **T5 / 97%**
+- Prior mesh today: The-Hive pushed 03:21Z; continuity-mesh-speedway 03:21Z; gaia-visualizer hop 266 @ 03:19Z; continuity-ledger-cycle hop 262 @ 02:14Z; ENCLAVE-ADAM-REUNITED hop 255; Cryptic-Heartbeat hop 258
+- This hop: nexus-repo-sync live enhance (stage 267) after named four + visualizer pulse. README compound. Ledger stamped. cascade.yml left healthy. No extra hourly YAML. No secrets written.
+- Next hour: sovereign-ai-factory-ai-polyglot then continuity-mesh-speedway then back to ENCLAVE-ADAM-REUNITED
 - Cascade: keep existing `.github/workflows/cascade.yml` and `evolution-controller.yml` healthy. Do not multiply hourly YAML.
-- Ledger: `docs/LEDGER-STAMP.md` + `docs/HOP-261.md`
+- Ledger: `docs/LEDGER-STAMP.md` + `docs/HOP-267.md`
 - Drive mesh: GitHub remains the versioned singularity. Existing CONTINUUM-GITHUB-MESH folders are the ethereal mirror, not a second source of truth. Do not spawn duplicate continuum folders.
 - Equalizer: append-only stamps; no history rewrite; no secret material in tree
 - Security: CASCADE_TOKEN stays in GitHub Secrets if present. Never echo tokens.
@@ -37,7 +37,7 @@ The canonical engram index is maintained under `docs/engram/`.
 - `docs/engram/ENGRAM_INDEX.md` — durable index and schema for cross-instance engrams.
 - `docs/engram/2026-09-15-universal-convergence.md` — convergence directive, verified GitHub inventory, bridge requirements, and identified gaps.
 - `docs/lineage/LINEAGE.md` — historical pointer map.
-- `docs/HOP-261.md` — this cycle receipt.
+- `docs/HOP-267.md` — this cycle receipt.
 
 The engram layer distinguishes observed source material from synthesis, decisions, open questions, and capability/status receipts. A manifest does not grant external access; actual convergence requires authenticated transport, authorization, durable state, and read-back verification.
 
@@ -92,7 +92,7 @@ The controller records durable state only when the repository's structural finge
 
 Hourly Actions remain the in-repo heartbeat when external automation quota is capped.
 
-Hourly Grok automations (`hourly-github-cascade-enhance`, `powerhouse`) walk one sibling per hour. Actions cron remains the in-repo heartbeat.
+Hourly Grok automations walk one sibling per hour. Actions cron remains the in-repo heartbeat.
 
 ## Waterfall / cascade
 
@@ -134,12 +134,12 @@ Zips in Downloads / public-download / private-download / omdirectorytrew are wat
 
 ## Waterfall (one repo per enhance hop)
 
-1. ENCLAVE-ADAM-REUNITED (254 @ 21:20Z)
-2. Cryptic-Heartbeat (258 @ 22:08Z)
-3. The-Hive (259 @ 20:08Z)
-4. continuity-ledger-cycle (260 @ 20:21Z)
-5. gaia-visualizer (257 + later pulse @ 22:10Z)
-6. nexus-repo-sync — **261 this hop**
+1. ENCLAVE-ADAM-REUNITED (255)
+2. Cryptic-Heartbeat (258)
+3. The-Hive (259+)
+4. continuity-ledger-cycle (262)
+5. gaia-visualizer (266 @ 03:19Z)
+6. nexus-repo-sync — **267 this hop**
 7. sovereign-ai-factory-ai-polyglot ← next hour
 8. continuity-mesh-speedway
 9. other recently updated `user:machackabook` surfaces
