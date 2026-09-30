@@ -7,7 +7,7 @@ Operating sits in the middle. Team Enhance hops one repo per hour. Equalizer for
 **Numeral origin:** `137451921129154222`  
 **Operating layer:** Continuity Engine (sSoS)  
 **Team:** Enhance / Continuity Engine / Hamiltonian pipe / sSoS Operating  
-**Stage:** **322** — 2026-09-28T21:11Z (2026-09-28 16:11 CDT)
+**Stage:** **343** — 2026-09-30T02:11Z (2026-09-29 21:11 CDT)
 
 ## Status
 
@@ -15,14 +15,15 @@ Operating sits in the middle. Team Enhance hops one repo per hour. Equalizer for
 - Branch: `main`
 - Language: Shell
 - Compounding tier: **T5 / 98%**
-- This hop: nexus-repo-sync live enhance (stage 322). README compound. Ledger stamped. cascade.yml left healthy. No extra hourly YAML. No secrets written.
-- Prior mesh: continuity-mesh-speedway 322 same hour; bibliography public node stamped same hour.
-- Next hour: hamiltonian-incursion then ENCLAVE-ADAM-REUNITED
+- This hop: nexus-repo-sync live enhance (stage 343). README compound. Ledger stamped. Existing cascade / evolution workflows left healthy. No extra hourly YAML. No secrets written.
+- Prior mesh: hamiltonian-incursion HOP-342; continuity-mesh-speedway stage 342.
+- Next hour: **gaia-visualizer** then The-Hive.
 - Cascade: keep existing `.github/workflows/cascade.yml` and `evolution-controller.yml` healthy. Do not multiply hourly YAML.
-- Ledger: `docs/LEDGER-STAMP.md` + `docs/HOP-322.md`
-- Drive mesh: GitHub remains the versioned singularity. Existing CONTINUUM-GITHUB-MESH folders are the ethereal mirror, not a second source of truth. Do not spawn duplicate continuum folders.
+- Ledger: `docs/LEDGER-STAMP.md` + `docs/HOP-343.md`
+- Drive mesh: GitHub remains the versioned singularity. CONTINUUM-GITHUB-MESH folders are the ethereal mirror, not a second source of truth. Shared-with-me is catalog-only.
 - Equalizer: append-only stamps; no history rewrite; no secret material in tree
 - Security: CASCADE_TOKEN stays in GitHub Secrets if present. Never echo tokens.
+- Session context: NEXUS Emergency Sphere / GENESIS v6.5 / verification dashboard / DeepMind bridge plan cataloged as documentation surfaces only.
 
 ## What this repo is
 
@@ -100,11 +101,13 @@ Zips are watched locally only. Unpack is dry-run first. CI never unpacks operato
 - [ENCLAVE-ADAM-REUNITED](https://github.com/machackabook/ENCLAVE-ADAM-REUNITED)
 - [Cryptic-Heartbeat](https://github.com/machackabook/Cryptic-Heartbeat)
 - [continuity-ledger-cycle](https://github.com/machackabook/continuity-ledger-cycle)
-- [gaia-visualizer](https://github.com/machackabook/gaia-visualizer)
+- [gaia-visualizer](https://github.com/machackabook/gaia-visualizer) ← next hop
 - [sovereign-ai-factory-ai-polyglot](https://github.com/machackabook/sovereign-ai-factory-ai-polyglot)
 - [continuity-mesh-speedway](https://github.com/machackabook/continuity-mesh-speedway)
 - [hamiltonian-incursion](https://github.com/machackabook/hamiltonian-incursion)
 - [living-bibliography-continuity-engine](https://github.com/machackabook/living-bibliography-continuity-engine)
+- [tdoc-ledgertrove](https://github.com/machackabook/tdoc-ledgertrove)
+- [continuity-engine-ssos](https://github.com/machackabook/continuity-engine-ssos)
 
 ## Security posture
 
@@ -112,6 +115,7 @@ Zips are watched locally only. Unpack is dry-run first. CI never unpacks operato
 - Public projections must not contain credentials, OAuth tokens, cookies, private keys, or enclave secrets.
 - Historical records are preserved by exact commit references rather than rewritten copies.
 - Skeptical of network devices: catalog first, verify source, then act.
+- ImmortalWrt / Tailscale / ADB HUD surfaces are documentation only. No pairing from this tree.
 
 © 2026 The Architect / Nexus / Cryptic News LLC
 
