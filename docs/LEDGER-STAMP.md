@@ -1,9 +1,6 @@
-# LEDGER STAMP
+# LEDGER-STAMP
 
-Latest hop: **HOP-343**  
-Repo: `nexus-repo-sync`  
-Time: 2026-09-30T02:11Z  
-Numeral: `137451921129154222`  
-Next: `gaia-visualizer`
-
-Append-only. Empty SHA refused. Point-zero null refused.
+Current hop: **344** @ 2026-09-30T04:11Z
+Last target: gaia-visualizer
+Numeral: 137451921129154222
+Next: continuity-engine-ssos
